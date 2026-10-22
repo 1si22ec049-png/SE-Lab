@@ -49,3 +49,15 @@ jobs:
 
       - name: Run backend tests
         run: mvn --batch-mode --no-transfer-progress test
+
+  docker-build:
+    name: Build backend Docker image
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t selab-notes-backend:ci ./backend
