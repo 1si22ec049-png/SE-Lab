@@ -72,6 +72,6 @@ class NotesControllerTest {
 
     @Test
     void intentionalCiFailureDemo() {
-        assertEquals(1, 2);
+        assertEquals(2, 2);
     }
 }
