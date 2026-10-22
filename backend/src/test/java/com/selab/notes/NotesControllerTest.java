@@ -69,4 +69,9 @@ class NotesControllerTest {
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(notes).deleteById(42L);
     }
+
+    @Test
+    void intentionalCiFailureDemo() {
+        assertEquals(1, 2);
+    }
 }
