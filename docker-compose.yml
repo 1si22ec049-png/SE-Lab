@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: ${DB_NAME:-selab_notes}
+      POSTGRES_USER: ${DB_USERNAME:-selab}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Copy .env.example to .env and set DB_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - notes-data:/var/lib/postgresql
+    networks:
+      - notes-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+  backend:
+    image: selab-notes-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-selab_notes}
+      DB_USERNAME: ${DB_USERNAME:-selab}
+      DB_PASSWORD: ${DB_PASSWORD:?Copy .env.example to .env and set DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    networks:
+      - notes-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+
+networks:
+  notes-network:
+    name: se-lab-notes-network
+
+volumes:
+  notes-data:
+    name: se-lab-notes-data

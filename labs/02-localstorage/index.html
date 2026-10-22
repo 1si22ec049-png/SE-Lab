@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notes App</title>
+    <style>
+      body {
+        max-width: 40rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        color: #222;
+        font-family: system-ui, sans-serif;
+      }
+
+      form {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      input {
+        flex: 1;
+        min-width: 0;
+        padding: 0.6rem;
+      }
+
+      button {
+        padding: 0.6rem 0.8rem;
+        cursor: pointer;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      li span {
+        overflow-wrap: anywhere;
+      }
+    </style>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Notes App</h1>
+      <p>Add a note below. Your notes stay saved after you refresh the page.</p>
+
+      <form id="note-form">
+        <label for="note-input">New note</label>
+        <input id="note-input" type="text" placeholder="Write a note..." required>
+        <button type="submit">Add note</button>
+      </form>
+
+      <ul id="note-list" aria-label="Your notes"></ul>
+      <p id="empty-message">No notes yet. Add one above!</p>
+    </main>
+  </body>
+</html>

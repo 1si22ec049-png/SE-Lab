@@ -1,0 +1,10 @@
+# Local Maven installation and generated build files.
+/.tools/
+**/target/
+
+# Runtime logs and local-only credentials.
+*.log
+**/.env
+**/.env.*
+!**/.env.example
+backend/src/main/resources/application-local.properties
